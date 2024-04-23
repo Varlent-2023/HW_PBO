@@ -118,13 +118,13 @@ Aggregation:
 Course aggregates Students (as it contains a list of enrolled students) and CourseMaterials.
 
 mermaid
-    classDiagram 
-    class User {
-    <<abstract>>
-    +UserID
-    +Password
-    +Login()
-    +Logout()
+    * classDiagram 
+    * class User {
+    * <<abstract>>
+    * +UserID
+    * +Password
+    * +Login()
+    * +Logout()
 }
 
 class Student {
