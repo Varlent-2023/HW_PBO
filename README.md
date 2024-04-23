@@ -81,53 +81,49 @@ Use Case diagram will represent the interactions between various user roles and 
 
 * Methods: Functions like registerCourse(), uploadGrades(), generateReport().
 
-User (Abstract Class)
-Attributes: UserID, Name, Email, Password
-Methods: login(), logout()
-Student (Inherits User)
-Attributes: EnrollmentID, Courses (List), Grades (List), Absences
-Methods: enrollInCourse(), viewGrades(), recordAbsence(), viewCourses()
-Professor (Inherits User)
-Attributes: FacultyID, CoursesTaught (List)
-Methods: uploadGrades(), manageCourseMaterials(), monitorAttendance()
-Admin (Inherits User)
-Attributes: AdminID
-Methods: manageUserAccounts(), generateReports(), overseeSystemOperations()
-Operator (Inherits User)
-Attributes: OperatorID
-Methods: provideTechnicalSupport(), maintainSystem()
-Parent (Inherits User)
-Attributes: Children (List of Students)
-Methods: viewChildProgress(), trackChildAttendance()
-Course
-Attributes: CourseID, Name, Description, StudentsEnrolled (List), CourseMaterials
-Methods: addStudent(), removeStudent(), updateCourseMaterial()
-Grade
-Attributes: StudentID, CourseID, LetterGrade, NumericScore
-Methods: updateGrade()
-Attendance
-Attributes: StudentID, CourseID, DatesAbsent
-Methods: recordAbsence(), calculateAttendanceRate()
-Class Relationships
-Inheritance: Student, Professor, Admin, Operator, and Parent classes all inherit from the User class.
-Association:
-Students have an association with Courses and Grades.
-Professors have an association with Courses (they teach) and the Grades (they assign).
-Parents have an association with their children's academic records.
-Aggregation:
+# User (Abstract Class)
+*Attributes: UserID, Name, Email, Password*
+* Methods: login(), logout()
+* Student (Inherits User)
+* Attributes: EnrollmentID, Courses (List), Grades (List), Absences
+* Methods: enrollInCourse(), viewGrades(), recordAbsence(), viewCourses()
+*Professor (Inherits User)*
+* Attributes: FacultyID, CoursesTaught (List)
+* Methods: uploadGrades(), manageCourseMaterials(), monitorAttendance()
+*Admin (Inherits User)*
+* Attributes: AdminID
+* Methods: manageUserAccounts(), generateReports(), overseeSystemOperations()
+*Operator (Inherits User)*
+* Attributes: OperatorID
+* Methods: provideTechnicalSupport(), maintainSystem()
+*Course*
+* Attributes: CourseID, Name, Description, StudentsEnrolled (List), CourseMaterials
+* Methods: addStudent(), removeStudent(), updateCourseMaterial()
+*Grade*
+* Attributes: StudentID, CourseID, LetterGrade, NumericScore
+* Methods: updateGrade()
+*Attendance*
+* Attributes: StudentID, CourseID, DatesAbsent
+* Methods: recordAbsence(), calculateAttendanceRate()
+*Association:*
+`Students have an association with Courses and Grades.`
+`Professors have an association with Courses (they teach) and the Grades (they assign).`
+`Parents have an association with their children's academic records.`
+*Aggregation:*
 Course aggregates Students (as it contains a list of enrolled students) and CourseMaterials.
+![usecase](./Screenshot%202024-04-23%20233815.png)
 
-mermaid
-    * classDiagram 
-    * class User {
-    * <<abstract>>
-    * +UserID
-    * +Password
-    * +Login()
-    * +Logout()
+# mermaid
+    classDiagram 
+    class User {
+    <<abstract>>
+    +UserID
+    +Password
+    +Login()
+    +Logout()
 }
 
-class Student {
+# class Student {
     +EnrollmentID
     +CoursesList
     +GradesList
@@ -139,7 +135,7 @@ class Student {
     +ViewPaymentBills()
 }
 
-class Professor {
+# class Professor {
     +FacultyID
     +CoursesTaught: List
     +UploadGrades()
@@ -147,14 +143,14 @@ class Professor {
     +UpdateSchedule()
 }
 
-class Operator {
+# class Operator {
     +OperatorID
     +ProvideTechnicalSupport()
     +MaintainSystem()
     +ConfirmPayment()
 }
 
-class Course {
+# class Course {
     +CourseID
     +Name
     +Description
@@ -165,7 +161,7 @@ class Course {
     +UpdateCourseMaterial()
 }
 
-class Announcement {
+# class Announcement {
     +AnnouncementID
     +Title
     +Content
@@ -176,7 +172,7 @@ class Announcement {
     +EditAnnouncement()
 }
 
-class Payment {
+# class Payment {
     -PaymentID
     -Amount
     -Date
@@ -185,7 +181,7 @@ class Payment {
     +cancelPayment()
 }
 
-class Grade {
+# class Grade {
     +StudentID
     +CourseID
     +LetterGrade
@@ -193,7 +189,7 @@ class Grade {
     +UpdateGrade()
 }
 
-class Attendance {
+# class Attendance {
     +StudentID
     +CourseID
     +DatesAbsent
@@ -201,15 +197,14 @@ class Attendance {
     +CalculateAttendanceRate()
 }
 
-User <|-- Student
-User <|-- Professor
-User <|-- Operator
+`User <|-- Student`
+`User <|-- Professor`
+`User <|-- Operator`
 
-Student "n" -- "n" Course : enrolls in >
-Course "1" -- "n" Grade : has > 
-Course "1" -- "n" Attendance : has >
-Professor "1" -- "1" Course : teaches >
+`Student "n" -- "n" Course : enrolls in >`
+`Course "1" -- "n" Grade : has > `
+`Course "1" -- "n" Attendance : has >`
+`Professor "1" -- "1" Course : teaches >`
 
-Student "n" -- "n" Payment : makes >
-Course "n" -- "n" Announcement : has >
-
+`Student "n" -- "n" Payment : makes >`
+`Course "n" -- "n" Announcement : has >`
