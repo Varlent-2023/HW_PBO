@@ -151,6 +151,7 @@ class Operator {
     +OperatorID
     +ProvideTechnicalSupport()
     +MaintainSystem()
+    +ConfirmPayment()
 }
 
 class Course {
