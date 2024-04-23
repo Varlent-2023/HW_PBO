@@ -197,13 +197,17 @@ Course aggregates Students (as it contains a list of enrolled students) and Cour
     +CalculateAttendanceRate()
 }
 
-`User <|-- Student`
-`User <|-- Professor`
-`User <|-- Operator`
+*User <|-- Student*
+*User <|-- Professor*
+*User <|-- Operator*
 
-`Student "n" -- "n" Course : enrolls in >`
-`Course "1" -- "n" Grade : has > `
-`Course "1" -- "n" Attendance : has >`
+*Student "n" -- "n" Course : enrolls in >*
+*Course "1" -- "n" Grade : has > *
+*Course "1" -- "n" Attendance : has >*
+*Professor "1" -- "1" Course : teaches >*
+
+*Student "n" -- "n" Payment : makes >*
+*Course "n" -- "n" Announcement : has >*
 `Professor "1" -- "1" Course : teaches >`
 
 `Student "n" -- "n" Payment : makes >`
