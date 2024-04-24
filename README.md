@@ -42,35 +42,31 @@ Use Case diagram will represent the interactions between various user roles and 
 ![usecase](./Usecase%20PBO.drawio.png)
 
 *User Stories (Functionalities)*
-* student
+*student*
  * enroll course
  * view grade
  * access course material
  * view schedule
- * you named it
+ * upload certificate
+ * register krs
+ * view attendance
+ * view payment bill
 
-* Professor
+ *Professor*
  * upload course
- * view course member
  * add grade
- * you named it
+ * submit attendance
+ * update schedule
 
-* Admin
- * User management
- * systm monitoring
- * you named it
-
-* Operator
- * Technical support
- * support dosen
- * support mahasiswa
- * daily operation
- * you named it
+*Operator*
+* maintain system
+* upload krs
+* confirm payment
 
 # Class Diagram
 * Main Classes: User, Course, Grade, Material, Notification, SystemSettings.
 
-* User Class: Subclasses for Student, Professor, Admin, Operator, Parent.
+* User Class: Subclasses for Student, Professor, Operator.
 
 * Relationships:
   * Users to Courses (enrollment, teaching).
@@ -80,40 +76,9 @@ Use Case diagram will represent the interactions between various user roles and 
 * Attributes: Specific to each class, like user ID, course details, grade records.
 
 * Methods: Functions like registerCourse(), uploadGrades(), generateReport().
-
-# User (Abstract Class)
-*Attributes: UserID, Name, Email, Password*
-* Methods: login(), logout()
-* Student (Inherits User)
-* Attributes: EnrollmentID, Courses (List), Grades (List), Absences
-* Methods: enrollInCourse(), viewGrades(), recordAbsence(), viewCourses()
-*Professor (Inherits User)*
-* Attributes: FacultyID, CoursesTaught (List)
-* Methods: uploadGrades(), manageCourseMaterials(), monitorAttendance()
-*Admin (Inherits User)*
-* Attributes: AdminID
-* Methods: manageUserAccounts(), generateReports(), overseeSystemOperations()
-*Operator (Inherits User)*
-* Attributes: OperatorID
-* Methods: provideTechnicalSupport(), maintainSystem()
-*Course*
-* Attributes: CourseID, Name, Description, StudentsEnrolled (List), CourseMaterials
-* Methods: addStudent(), removeStudent(), updateCourseMaterial()
-*Grade*
-* Attributes: StudentID, CourseID, LetterGrade, NumericScore
-* Methods: updateGrade()
-*Attendance*
-* Attributes: StudentID, CourseID, DatesAbsent
-* Methods: recordAbsence(), calculateAttendanceRate()
-*Association:*
-`Students have an association with Courses and Grades.`
-`Professors have an association with Courses (they teach) and the Grades (they assign).`
-`Parents have an association with their children's academic records.`
-*Aggregation:*
-Course aggregates Students (as it contains a list of enrolled students) and CourseMaterials.
 ![usecase](./Screenshot%202024-04-23%20233815.png)
 
-# mermaid
+```mermaid
     classDiagram 
     class User {
     <<abstract>>
@@ -123,7 +88,7 @@ Course aggregates Students (as it contains a list of enrolled students) and Cour
     +Logout()
 }
 
-# class Student {
+class Student {
     +EnrollmentID
     +CoursesList
     +GradesList
@@ -133,9 +98,11 @@ Course aggregates Students (as it contains a list of enrolled students) and Cour
     +RecordAbsence()
     +ViewSchedule()
     +ViewPaymentBills()
+    +ChooseKRS()
+    +UploadCertificate()
 }
 
-# class Professor {
+class Dosen {
     +FacultyID
     +CoursesTaught: List
     +UploadGrades()
@@ -143,36 +110,25 @@ Course aggregates Students (as it contains a list of enrolled students) and Cour
     +UpdateSchedule()
 }
 
-# class Operator {
+class Operator {
     +OperatorID
     +ProvideTechnicalSupport()
     +MaintainSystem()
     +ConfirmPayment()
+    +UploadKRS()
 }
 
-# class Course {
+class Course {
     +CourseID
     +Name
     +Description
     +StudentsEnrolled: List
     +CourseMaterials: List
     +AddStudent()
-    +RemoveStudent()
     +UpdateCourseMaterial()
 }
 
-# class Announcement {
-    +AnnouncementID
-    +Title
-    +Content
-    +PostedBy
-    +DatePosted
-    +CreateAnnouncement()
-    +DeleteAnnouncement()
-    +EditAnnouncement()
-}
-
-# class Payment {
+class Billing {
     -PaymentID
     -Amount
     -Date
@@ -181,7 +137,7 @@ Course aggregates Students (as it contains a list of enrolled students) and Cour
     +cancelPayment()
 }
 
-# class Grade {
+class Grade {
     +StudentID
     +CourseID
     +LetterGrade
@@ -189,24 +145,35 @@ Course aggregates Students (as it contains a list of enrolled students) and Cour
     +UpdateGrade()
 }
 
-# class Attendance {
+class Attendance {
     +StudentID
     +CourseID
     +DatesAbsent
     +RecordAbsence()
     +CalculateAttendanceRate()
 }
+class KRS {
+    +StudentID
+    +OperatorID
+    +ScheduleFile()
+}
+class Certificate {
+    +UserID
+    +CertificateFile()
+}
 
-* User <|-- Student
-* User <|-- Professor
-* User <|-- Operator
+User <|-- Student
+User <|-- Dosen
+User <|-- Operator
 
-* Student "n" -- "n" Course : enrolls in >
-* Course "1" -- "n" Grade : has >
-* Course "1" -- "n" Attendance : has >
-* Professor "1" -- "1" Course : teaches >
+Student "n" -- "n" Course : enrolls in >
+Course "1" -- "n" Grade : has > 
+Course "1" -- "n" Attendance : has >
+Dosen "1" -- "1" Course : teaches >
 
-* Student "n" -- "n" Payment : makes >
-* Course "n" -- "n" Announcement : has >
+Student "n" -- "n" Billing: makes >
+Student "n" -- "n" Certificate : upload >
+Operator "n" -- "n" KRS : has >
+Operator "n" -- "n" Billing : makes>
 
-
+```
