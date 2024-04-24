@@ -76,7 +76,6 @@ Use Case diagram will represent the interactions between various user roles and 
 * Attributes: Specific to each class, like user ID, course details, grade records.
 
 * Methods: Functions like registerCourse(), uploadGrades(), generateReport().
-![usecase](./Screenshot%202024-04-23%20233815.png)
 
 ```mermaid
     classDiagram 
