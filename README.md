@@ -39,7 +39,7 @@ Use Case diagram will represent the interactions between various user roles and 
 * Student (mahasiswa)
 * Professor(Dosen)
 * Operator(Tata Usaha)
-* Admin (PTI)
+![usecase](./Usecase%20PBO.drawio.png)
 
 *User Stories (Functionalities)*
 * student
